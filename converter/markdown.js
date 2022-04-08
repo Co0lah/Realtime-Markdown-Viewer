@@ -22,7 +22,8 @@ var parseBold = function(str) {
   var stra = [];
   while ((stra = boldRegExp.exec(str)) !== null) {
     str = str.replace(stra[0], '<b>' + stra[2] + '</b>')
-  }  return str;
+  }  
+  return str;
 }
 
 
@@ -57,12 +58,15 @@ var parseStrong = function(str) {
   var linkRegExp = /\[([^\[]+)\]\(([^\)]+)\)/;
   var stra = [];
   while ((stra = linkRegExp.exec(str)) !== null) {
-    str = str.replace(stra[0], '<a ' + 'href="' + stra[2] + '">' + stra[1] + '</a>');
-        if (stra[0].substr(0, 1) === '!') {
+       if (stra[0].substr(0, 1) === '!') {
            str = str.replace(stra[0], '<img src="' + stra[2] + '" alt="' + stra[1] + '" title="' + stra[1] + '" />\n');
-      } else {
-            str = str.replace(stra[0], '<a ' + 'href="' + stra[2] + '">' + stra[1] + '</a>');
-        }
+       } else {
+           str = str.replace(stra[0], '<a ' + 'href="' + stra[2] + '">' + stra[1] + '</a>');
+      }        
+      return str;
+      }
+    }
+     
 
 var parseNewLine = function(str) {
   var newLineRegExp = /(^|[^\n])\n{1}(?!\n)/;
@@ -115,7 +119,6 @@ var markdown = {
     str = parseBlockQuote(str);
     str = parseDel(str);
     str = parseCodeBlock(str);
-    str = parseHorizontaleLine(str);
     return str;
   }
 };
