@@ -22,6 +22,15 @@ var parseBold = function(str) {
   var stra = [];
   while ((stra = boldRegExp.exec(str)) !== null) {
     str = str.replace(stra[0], '<b>' + stra[2] + '</b>')
+  }  return str;
+}
+
+
+ var parseCodeBlock = function(str) {
+  var codeRegExp = /```(.*?)```/;
+  var stra = [];
+  while ((stra = codeRegExp.exec(str)) !== null) {
+    str = str.replace(stra[0], '<code>' + stra[1] + '</code>');
   }
   return str;
  }
@@ -34,7 +43,6 @@ var parseStrong = function(str) {
   }
   return str;
 }
-
 
  var parseHorizontaleLine = function(str) {
   var horizontalRegExp = /^(?:([\*\-_] ?)+)\1\1$/gm;
@@ -104,6 +112,8 @@ var markdown = {
     str = parseCode(str);
     str = parseBlockQuote(str);
     str = parseDel(str);
+    str = parseCodeBlock(str);
+    str = parseHorizontaleLine(str);
     return str;
   }
 };
